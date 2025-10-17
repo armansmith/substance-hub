@@ -1,19 +1,20 @@
-/* Starry background using CSS only */
+/* ---------- BODY & BACKGROUND ---------- */
 body {
-    background: black;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
     overflow-x: hidden;
     position: relative;
+    background: black;
 }
 
+/* ---------- STAR FIELD USING CSS ---------- */
 body::before {
     content: '';
     position: fixed;
-    width: 100%;
-    height: 100%;
+    width: 200%;
+    height: 200%;
     top: 0;
     left: 0;
     background: transparent;
@@ -27,12 +28,126 @@ body::before {
         1100px 250px white,
         1300px 400px white,
         1500px 100px white,
-        1700px 350px white;
-    animation: starsMove 100s linear infinite;
+        1700px 350px white,
+        400px 700px white,
+        600px 850px white,
+        800px 900px white,
+        1200px 600px white,
+        1600px 750px white;
+    animation: starsMove 200s linear infinite;
     z-index: -1;
+    opacity: 0.9;
 }
 
 @keyframes starsMove {
     0% { transform: translateY(0px); }
     100% { transform: translateY(-2000px); }
+}
+
+/* ---------- HEADER ---------- */
+header {
+    background: rgba(10, 20, 40, 0.85);
+    text-align: center;
+    padding: 25px 10%;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+    color: #00ffff;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 45px #00ffff;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #c0ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+/* ---------- NAVIGATION ---------- */
+header nav {
+    margin-top: 15px;
+}
+
+header nav a {
+    color: #00ffff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 8px #00ffff;
+    transition: 0.3s;
+}
+
+header nav a:hover {
+    color: #ffcc00;
+    text-shadow: 0 0 15px #ffcc00, 0 0 25px #ffcc00;
+}
+
+/* ---------- MAIN CONTENT ---------- */
+main {
+    padding: 30px 10%;
+}
+
+section {
+    background: rgba(0, 0, 0, 0.5);
+    margin-bottom: 25px;
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    animation: floatSection 6s ease-in-out infinite;
+}
+
+/* Section floating animation to feel “in space” */
+@keyframes floatSection {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+main h2 {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+/* Paragraphs and lists */
+main p, main ul, main li {
+    color: #ffffff;
+    line-height: 1.8;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    background: rgba(10, 20, 40, 0.85);
+    color: #00ffff;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 -5px 30px rgba(0, 255, 255, 0.3);
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-shadow: 0 0 15px #ffcc00;
+}
+
+/* ---------- BUTTONS (Optional) ---------- */
+button {
+    background: #00ffff;
+    border: none;
+    padding: 10px 20px;
+    color: black;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00ffff;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ffcc00;
+    box-shadow: 0 0 20px #ffcc00;
 }
