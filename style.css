@@ -1,138 +1,19 @@
-/* ---------- BODY & BACKGROUND ---------- */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    color: #ffffff;
-    overflow-x: hidden;
-    position: relative;
-    background: black;
-}
-
-/* ---------- STAR BACKGROUND USING LOCAL IMAGE ---------- */
 body::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
-    width: 300%;
-    height: 300%;
+    width: 200%;
+    height: 200%;
     background: url('stars.png') repeat;
-    background-size: contain;
-    animation: starMove 200s linear infinite;
+    background-size: 600px 600px; /* Adjust star density */
+    animation: starDrift 180s linear infinite;
     z-index: -1;
-    opacity: 0.85;
+    opacity: 0.9;
+    filter: brightness(1.4);
 }
 
-@keyframes starMove {
-    0% { transform: translate(0,0); }
-    100% { transform: translate(-500px, -300px); }
-}
-
-/* ---------- HEADER ---------- */
-header {
-    background: rgba(10, 20, 40, 0.85);
-    text-align: center;
-    padding: 30px 10%;
-    box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
-}
-
-header h1 {
-    font-size: 3.5em;
-    margin: 0;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff, 0 0 40px #00ffff;
-}
-
-header p {
-    font-size: 1.3em;
-    color: #c0ffff;
-    text-shadow: 0 0 8px #00ffff;
-}
-
-/* ---------- NAVIGATION ---------- */
-header nav {
-    margin-top: 20px;
-}
-
-header nav a {
-    color: #00ffff;
-    margin: 0 20px;
-    text-decoration: none;
-    font-weight: bold;
-    text-shadow: 0 0 8px #00ffff;
-    transition: 0.3s;
-}
-
-header nav a:hover {
-    color: #ffcc00;
-    text-shadow: 0 0 15px #ffcc00, 0 0 25px #ffcc00;
-}
-
-/* ---------- MAIN CONTENT ---------- */
-main {
-    padding: 40px 10%;
-}
-
-section {
-    background: rgba(0, 0, 0, 0.55);
-    margin-bottom: 30px;
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    animation: floatSection 6s ease-in-out infinite;
-}
-
-/* Section floating animation */
-@keyframes floatSection {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-}
-
-main h2 {
-    color: #00ffff;
-    text-shadow: 0 0 12px #00ffff, 0 0 25px #00ffff;
-}
-
-/* Paragraphs and lists */
-main p, main ul, main li {
-    color: #ffffff;
-    line-height: 1.8;
-}
-
-/* ---------- FOOTER ---------- */
-footer {
-    background: rgba(10, 20, 40, 0.85);
-    color: #00ffff;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 -5px 40px rgba(0, 255, 255, 0.3);
-}
-
-footer a {
-    color: #ffcc00;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-shadow: 0 0 15px #ffcc00;
-}
-
-/* ---------- BUTTONS ---------- */
-button {
-    background: #00ffff;
-    border: none;
-    padding: 12px 25px;
-    color: black;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 0 20px #00ffff;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #ffcc00;
-    box-shadow: 0 0 25px #ffcc00;
+@keyframes starDrift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-300px, -300px); }
 }
