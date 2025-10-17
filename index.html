@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Compoundly</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Compoundly — Search substances</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Compoundly</h1>
-        <p>Your trusted source for information on supplements, compounds, and substances.</p>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="substance1.html">Substance 1</a>
-            <a href="substance2.html">Substance 2</a>
-        </nav>
-    </header>
+  <header class="top">
+    <h1 class="brand">Compoundly</h1>
+    <p class="tag">Search compounds, supplements, and substances — honest, science-based info.</p>
 
-    <main>
-        <section>
-            <h2>Welcome</h2>
-            <p>We provide factual, science-backed information about modern substances and supplements. Explore our database and guides to learn safely.</p>
-        </section>
+    <div class="search-wrap">
+      <input id="searchInput" type="search" placeholder="Search substances, chemicals, compounds..." autocomplete="off" />
+      <button id="searchBtn">Search</button>
+    </div>
 
-        <section>
-            <h2>Featured Substances</h2>
-            <ul>
-                <li><a href="substance1.html">Substance 1</a></li>
-                <li><a href="substance2.html">Substance 2</a></li>
-            </ul>
-        </section>
-    </main>
+    <p class="help">Try: "tianeptine", "cbd", "acetaminophen", "nicotine"</p>
+  </header>
 
-    <footer>
-        <p>&copy; 2025 Compoundly | <a href="#">About</a> | <a href="#">Sources</a></p>
-    </footer>
+  <main>
+    <section id="results" class="results"></section>
+
+    <section id="detailPanel" class="detail hidden" aria-live="polite">
+      <!-- Filled dynamically -->
+    </section>
+  </main>
+
+  <footer>
+    <small>Compoundly — educational info only · Not medical advice</small>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
