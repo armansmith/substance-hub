@@ -1,1 +1,102 @@
+/* Body and general styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    background: black;
+    overflow-x: hidden;
+}
 
+/* Starry background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: transparent url('https://i.imgur.com/7Q3X9hJ.png') repeat; /* small star PNG */
+    animation: starMove 200s linear infinite;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Animation for moving stars */
+@keyframes starMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(-1000px, -500px); }
+}
+
+/* Header */
+header {
+    background: rgba(13, 27, 42, 0.8);
+    color: #00ffff;
+    padding: 20px 10%;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Header title */
+header h1 {
+    margin: 0;
+    font-size: 3em;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Navigation links */
+header nav a {
+    color: #00ffff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffff;
+    transition: 0.3s;
+}
+
+header nav a:hover {
+    color: #ffcc00;
+    text-shadow: 0 0 15px #ffcc00;
+}
+
+/* Main content */
+main {
+    padding: 30px 10%;
+}
+
+main h2 {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+main p, main ul, main li {
+    color: #ffffff;
+    line-height: 1.8;
+}
+
+/* Footer */
+footer {
+    background: rgba(13, 27, 42, 0.8);
+    color: #00ffff;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 -5px 15px rgba(0, 255, 255, 0.3);
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-shadow: 0 0 10px #ffcc00;
+}
+
+/* Optional: glowing effect for sections */
+section {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
