@@ -1,35 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Compoundly — Search substances</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compoundly</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <h1 class="brand">Compoundly</h1>
-    <p class="tag">Search compounds, supplements, and substances — honest, science-based info.</p>
+  <div class="container">
+    <h1 class="title">Compoundly</h1>
+    <p class="subtitle">Explore every chemical, substance, and compound in existence.</p>
 
-    <div class="search-wrap">
-      <input id="searchInput" type="search" placeholder="Search substances, chemicals, compounds..." autocomplete="off" />
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search for a substance..." autocomplete="off">
       <button id="searchBtn">Search</button>
     </div>
 
-    <p class="help">Try: "tianeptine", "cbd", "acetaminophen", "nicotine"</p>
-  </header>
-
-  <main>
-    <section id="results" class="results"></section>
-
-    <section id="detailPanel" class="detail hidden" aria-live="polite">
-      <!-- Filled dynamically -->
-    </section>
-  </main>
-
-  <footer>
-    <small>Compoundly — educational info only · Not medical advice</small>
-  </footer>
+    <div class="results" id="results"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
