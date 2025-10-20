@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up / Log In - Compoundism</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Auth Container -->
+  <section id="auth-container">
+    <div class="auth-box">
+      <h1>Sign Up / Log In</h1>
 
+      <!-- Signup Form -->
+      <div id="signup-form">
+        <h2>Sign Up</h2>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button id="signup-btn">Sign Up</button>
+        <p id="signup-message"></p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-form">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button id="login-btn">Login</button>
+        <p id="login-message"></p>
+      </div>
+
+      <!-- Logged-in Section -->
+      <div id="logout-section" style="display:none;">
+        <p id="welcome-message"></p>
+        <button id="logout-btn">Logout</button>
+      </div>
+
+      <!-- Back to Home -->
+      <a href="index.html" class="back-home">← Back to Home</a>
+    </div>
+  </section>
+
+  <!-- Firebase and Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="firebase-init.js"></script>
+  <script src="auth-scripts.js"></script>
+</body>
+</html>
