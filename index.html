@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<section id="auth-section">
+<!-- Homepage content -->
+<section id="homepage">
+  <h1>Welcome to Compoundism</h1>
+  <p>Your central hub for harm reduction information on substances.</p>
+  <button id="show-auth-btn">Sign Up / Log In</button>
+</section>
+
+<!-- Auth Modal / Section (hidden by default) -->
+<section id="auth-section" style="display:none;">
   <h2>Sign Up / Login</h2>
 
   <!-- Signup Form -->
@@ -20,11 +28,13 @@
     <p id="login-message"></p>
   </div>
 
-  <!-- Logout Section -->
-  <div id="logout-section" style="display:none;">
-    <p id="welcome-message"></p>
-    <button id="logout-btn">Logout</button>
-  </div>
+  <button id="close-auth-btn">Close</button>
+</section>
+
+<!-- Logged-in welcome section -->
+<section id="logout-section" style="display:none;">
+  <p id="welcome-message"></p>
+  <button id="logout-btn">Logout</button>
 </section>
 <!-- Firebase App -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
