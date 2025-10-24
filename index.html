@@ -1,63 +1,37 @@
 <!DOCTYPE html>
-<a href="auth.html" class="auth-btn">Sign Up / Log In</a>
-<!-- Firebase App -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<!-- Firebase Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<!-- Firebase Storage (optional for avatars/images) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
-<!-- Your Firebase Init -->
-<script src="firebase-init.js"></script>
-<!-- Your Custom JS -->
-<script src="scripts.js"></script>
-<section id="auth-section">
-  <h2>Sign Up / Login</h2>
-
-  <!-- Signup Form -->
-  <div id="signup-form">
-    <h3>Sign Up</h3>
-    <input type="email" id="signup-email" placeholder="Email" required>
-    <input type="password" id="signup-password" placeholder="Password" required>
-    <button id="signup-btn">Sign Up</button>
-    <p id="signup-message"></p>
-  </div>
-
-  <!-- Login Form -->
-  <div id="login-form">
-    <h3>Login</h3>
-    <input type="email" id="login-email" placeholder="Email" required>
-    <input type="password" id="login-password" placeholder="Password" required>
-    <button id="login-btn">Login</button>
-    <p id="login-message"></p>
-  </div>
-
-  <!-- Logout Button -->
-  <div id="logout-section" style="display:none;">
-    <p id="welcome-message"></p>
-    <button id="logout-btn">
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compoundly</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compoundism</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Compoundly</h1>
-    <p class="subtitle">Explore every chemical, substance, and compound in existence.</p>
+  <!-- Top-right login button -->
+  <a href="auth.html" class="auth-btn">Sign Up / Log In</a>
 
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search for a substance..." autocomplete="off">
-      <button id="searchBtn">Search</button>
+  <!-- Hero section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Compoundism</h1>
+      <p class="tagline">The go-to site to learn about any chemical or substance in existence.</p>
+      <a href="#explore" class="explore-btn">Explore the Database</a>
     </div>
+  </section>
 
-    <div class="results" id="results"></div>
-  </div>
+  <!-- Placeholder section -->
+  <section id="explore" class="info-section">
+    <h2>What is Compoundism?</h2>
+    <p>
+      Compoundism is your gateway to verified information on thousands of chemical substances — from everyday compounds to research chemicals and peptides.  
+      Our goal is harm reduction through education, clarity, and exploration.
+    </p>
+  </section>
 
-  <script src="script.js"></script>
+  <footer>
+    <p>&copy; 2025 Compoundism — Knowledge for Harm Reduction</p>
+  </footer>
 </body>
 </html>
