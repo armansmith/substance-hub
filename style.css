@@ -1,47 +1,45 @@
-.auth-btn {
-  position: fixed;      /* stays in place even when scrolling */
-  top: 20px;            /* distance from top */
-  right: 20px;          /* distance from right */
-  padding: 10px 20px;
-  background-color: #007BFF; /* nice blue button */
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: background-color 0.2s;
-  z-index: 1000;        /* stays above other content */
-}
-
-.auth-btn:hover {
-  background-color: #0056b3;
-}
-/* Reset and fonts */
-body, html {
+/* Global reset */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', sans-serif;
-  color: #fff;
-  height: 100%;
-  overflow-x: hidden;
-  background: radial-gradient(circle at 50% 50%, #0b0c1a 0%, #0a0b1c 40%, #04050c 100%);
+  box-sizing: border-box;
 }
 
-/* Galaxy stars animation */
+body {
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  background: radial-gradient(circle at 20% 50%, #0b0b22, #050510, #000000);
+  overflow-x: hidden;
+}
+
+/* Animated star background */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
-  top:0; left:0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
   background: transparent url('https://i.ibb.co/CP0vF7k/galaxy-stars.png') repeat;
-  animation: starsMove 120s linear infinite;
-  z-index: -1;
+  animation: starsMove 180s linear infinite;
+  z-index: -2;
+  opacity: 0.5;
 }
 
 @keyframes starsMove {
-  from {background-position: 0 0;}
-  to {background-position: -2000px 1000px;}
+  from { transform: translate(0, 0); }
+  to { transform: translate(-1000px, 500px); }
+}
+
+/* Subtle glowing gradient overlay */
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(80,0,150,0.4), transparent 70%);
+  z-index: 0;
 }
 
 /* Top-right button */
@@ -49,41 +47,100 @@ body::before {
   position: fixed;
   top: 20px;
   right: 20px;
-  padding: 12px 25px;
-  background-color: rgba(0,123,255,0.8);
-  color: #fff;
-  text-decoration: none;
+  padding: 10px 22px;
   border-radius: 8px;
+  background: rgba(0, 204, 255, 0.85);
+  color: white;
+  text-decoration: none;
   font-weight: bold;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  transition: background-color 0.3s, transform 0.2s;
+  font-size: 15px;
+  box-shadow: 0 0 12px rgba(0, 204, 255, 0.5);
+  transition: all 0.3s ease;
   z-index: 1000;
 }
 
 .auth-btn:hover {
-  background-color: rgba(0,123,255,1);
+  background: rgba(0, 204, 255, 1);
   transform: scale(1.05);
 }
 
 /* Hero section */
 .hero {
+  position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: 100vh;
   text-align: center;
-  min-height: 100vh;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 0, 60, 0.4), rgba(0,0,0,0.9));
+}
+
+.hero-content {
+  z-index: 1;
   padding: 0 20px;
-  background: radial-gradient(circle at center, rgba(30,0,60,0.5) 0%, transparent 70%);
 }
 
 .hero h1 {
-  font-size: 3em;
+  font-size: 4em;
+  color: #00eaff;
+  text-shadow: 0 0 15px #00eaff, 0 0 30px #0077aa;
   margin-bottom: 20px;
-  color: #00d1ff;
-  text-shadow: 0 0 10px #00d1ff, 0 0 20px #005577;
 }
 
-.hero p {
-  font
+.tagline {
+  font-size: 1.3em;
+  color: #cfdfff;
+  text-shadow: 0 0 5px #004466;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+/* Explore button */
+.explore-btn {
+  padding: 12px 30px;
+  background: #00eaff;
+  color: #000;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.1em;
+  box-shadow: 0 0 20px rgba(0,234,255,0.7);
+  transition: 0.3s;
+}
+
+.explore-btn:hover {
+  background: #00b0cc;
+  box-shadow: 0 0 30px rgba(0,234,255,1);
+  transform: scale(1.05);
+}
+
+/* Info section */
+.info-section {
+  padding: 80px 20px;
+  text-align: center;
+  background: rgba(10, 10, 20, 0.9);
+}
+
+.info-section h2 {
+  color: #00eaff;
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.info-section p {
+  color: #d9eaff;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #aaa;
+}
