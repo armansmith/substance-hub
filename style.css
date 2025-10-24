@@ -38,8 +38,37 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(80,0,150,0.4), transparent 70%);
+  background: radial-gradient(circle at center, rgba(80,0,150,0.3), transparent 70%);
   z-index: 0;
+}
+
+/* Moving nebula glow */
+.nebula {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle at 40% 40%, rgba(0, 255, 204, 0.25), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255, 0, 200, 0.25), transparent 60%);
+  animation: moveNebula 40s ease-in-out infinite alternate;
+  z-index: -1;
+  filter: blur(90px);
+}
+
+@keyframes moveNebula {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(50px, 80px) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50px, -50px) scale(1);
+    opacity: 0.6;
+  }
 }
 
 /* Top-right button */
@@ -79,6 +108,7 @@ body::before {
 .hero-content {
   z-index: 1;
   padding: 0 20px;
+  transform: translateY(-60px); /* moves everything up slightly */
 }
 
 .hero h1 {
