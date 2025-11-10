@@ -4,63 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compoundism | Login / Signup</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
   <style>
+    /* Body & Background */
     body {
-      background: radial-gradient(circle at top, #06061a, #000);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      margin: 0;
+      padding: 0;
       height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+      background: radial-gradient(circle at 50% 50%, #0b0c23, #000);
+      overflow: hidden;
+      color: #fff;
     }
+
+    /* Stars Animation */
+    .stars {
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      animation: twinkle 2s infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: translateY(0) scale(1); }
+      50% { opacity: 1; transform: translateY(-2px) scale(1.2); }
+      100% { opacity: 0.2; transform: translateY(0) scale(1); }
+    }
+
+    /* Auth Box */
     .auth-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-      width: 320px;
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 1.2rem;
+      padding: 2rem 2.5rem;
+      width: 360px;
+      box-shadow: 0 0 60px rgba(255,255,255,0.1);
       text-align: center;
-      backdrop-filter: blur(8px);
+      animation: fadeIn 1s ease-in-out;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-box h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #9fa8da;
+    }
+
     input {
       width: 100%;
-      margin: 0.5rem 0;
       padding: 0.7rem;
+      margin: 0.5rem 0;
       border: none;
       border-radius: 0.5rem;
       background: rgba(255,255,255,0.1);
       color: #fff;
+      font-size: 1rem;
     }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
     button {
       margin-top: 1rem;
       width: 100%;
-      padding: 0.7rem;
+      padding: 0.8rem;
       border: none;
       border-radius: 0.5rem;
       background: linear-gradient(90deg, #7b2ff7, #f107a3);
       color: #fff;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+      transition: 0.3s;
     }
+
     button:hover {
       opacity: 0.9;
+      transform: scale(1.02);
     }
-    a {
-      color: #9fa8da;
-      text-decoration: none;
-    }
+
     .toggle {
       margin-top: 1rem;
       font-size: 0.9rem;
       cursor: pointer;
+      color: #9fa8da;
     }
+    .toggle:hover {
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- Dynamic Stars -->
+  <div id="starfield"></div>
+
+  <!-- Auth Box -->
   <div class="auth-box">
     <h2 id="formTitle">Sign Up</h2>
     <input type="email" id="email" placeholder="Email" />
@@ -69,6 +120,7 @@
     <div class="toggle" id="toggleForm">Already have an account? Log In</div>
   </div>
 
+  <!-- Firebase + JS -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
@@ -104,11 +156,7 @@
     submitBtn.addEventListener('click', async () => {
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
-
-      if (!email || !password) {
-        alert('Please enter both email and password');
-        return;
-      }
+      if (!email || !password) return alert('Enter both email and password!');
 
       try {
         if (isLogin) {
@@ -124,6 +172,17 @@
         alert(error.message);
       }
     });
+
+    // Starfield Effect
+    const starfield = document.getElementById('starfield');
+    for(let i=0;i<150;i++){
+      const star = document.createElement('div');
+      star.className='stars';
+      star.style.top = Math.random()*100+'%';
+      star.style.left = Math.random()*100+'%';
+      star.style.width = star.style.height = Math.random()*2+1+'px';
+      starfield.appendChild(star);
+    }
   </script>
 </body>
 </html>
