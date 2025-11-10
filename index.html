@@ -7,6 +7,32 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
+<script type="module">
+  // Import Firebase SDKs from Google's CDN (for browser use)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
+    authDomain: "compoundism.firebaseapp.com",
+    projectId: "compoundism",
+    storageBucket: "compoundism.firebasestorage.app",
+    messagingSenderId: "60525355923",
+    appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
+    measurementId: "G-NN9F8VKGX8"
+  };
+
+  // Initialize Firebase core services
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("✅ Firebase fully initialized!");
+</script>
 <body>
   <!-- Top-right login button -->
   <a href="auth.html" class="auth-btn">Sign Up / Log In</a>
