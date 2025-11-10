@@ -1,51 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up / Log In - Compoundism</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compoundism | Login / Signup</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at top, #06061a, #000);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .auth-box {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      width: 320px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    input {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: linear-gradient(90deg, #7b2ff7, #f107a3);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    a {
+      color: #9fa8da;
+      text-decoration: none;
+    }
+    .toggle {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <!-- Auth Container -->
-  <section id="auth-container">
-    <div class="auth-box">
-      <h1>Sign Up / Log In</h1>
 
-      <!-- Signup Form -->
-      <div id="signup-form">
-        <h2>Sign Up</h2>
-        <input type="email" id="signup-email" placeholder="Email" required>
-        <input type="password" id="signup-password" placeholder="Password" required>
-        <button id="signup-btn">Sign Up</button>
-        <p id="signup-message"></p>
-      </div>
+  <div class="auth-box">
+    <h2 id="formTitle">Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="submitBtn">Sign Up</button>
+    <div class="toggle" id="toggleForm">Already have an account? Log In</div>
+  </div>
 
-      <!-- Login Form -->
-      <div id="login-form">
-        <h2>Login</h2>
-        <input type="email" id="login-email" placeholder="Email" required>
-        <input type="password" id="login-password" placeholder="Password" required>
-        <button id="login-btn">Login</button>
-        <p id="login-message"></p>
-      </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
 
-      <!-- Logged-in Section -->
-      <div id="logout-section" style="display:none;">
-        <p id="welcome-message"></p>
-        <button id="logout-btn">Logout</button>
-      </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
+      authDomain: "compoundism.firebaseapp.com",
+      projectId: "compoundism",
+      storageBucket: "compoundism.firebasestorage.app",
+      messagingSenderId: "60525355923",
+      appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
+      measurementId: "G-NN9F8VKGX8"
+    };
 
-      <!-- Back to Home -->
-      <a href="index.html" class="back-home">← Back to Home</a>
-    </div>
-  </section>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  <!-- Firebase and Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="firebase-init.js"></script>
-  <script src="auth-scripts.js"></script>
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+    const toggleForm = document.getElementById('toggleForm');
+    const formTitle = document.getElementById('formTitle');
+
+    let isLogin = false;
+
+    toggleForm.addEventListener('click', () => {
+      isLogin = !isLogin;
+      formTitle.textContent = isLogin ? 'Log In' : 'Sign Up';
+      submitBtn.textContent = isLogin ? 'Log In' : 'Sign Up';
+      toggleForm.textContent = isLogin ? "Don't have an account? Sign Up" : "Already have an account? Log In";
+    });
+
+    submitBtn.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+      }
+
+      try {
+        if (isLogin) {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          alert(`Welcome back, ${userCredential.user.email}!`);
+          window.location.href = 'index.html';
+        } else {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          alert(`Account created for ${userCredential.user.email}`);
+          window.location.href = 'index.html';
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  </script>
 </body>
 </html>
