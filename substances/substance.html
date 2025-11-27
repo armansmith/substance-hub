@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compoundism - Substance Info</title>
+  <link rel="stylesheet" href="../style.css"> <!-- Your main CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at center, #0b0f1a, #1a1f36, #0b0f1a);
+      color: #ffffff;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: rgba(10,10,30,0.85);
+      border-radius: 12px;
+    }
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #f0e130;
+      text-shadow: 0 0 15px #f0e130;
+    }
+    .subclass {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #a0d8f0;
+    }
+    .summary, .description, .risks {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .topics-container {
+      margin-top: 30px;
+    }
+    .topic {
+      background-color: rgba(255,255,255,0.05);
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .topic:hover {
+      background-color: rgba(255,255,255,0.15);
+    }
+    .chat-placeholder {
+      margin-top: 10px;
+      font-style: italic;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="substanceName">Loading...</h1>
+    <div class="subclass" id="substanceClass"></div>
+    <p class="summary" id="substanceSummary"></p>
+    <p class="description" id="substanceDescription"></p>
+    <p class="risks" id="substanceRisks"></p>
 
+    <div class="topics-container" id="topicsContainer">
+      <h2>Topics & Chat</h2>
+      <!-- Topics will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    // Firebase config (replace with your own if different)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
+      authDomain: "compoundism.firebaseapp.com",
+      projectId: "compoundism",
+      storageBucket: "compoundism.firebasestorage.app",
+      messagingSenderId: "60525355923",
+      appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
+      measurementId: "G-NN9F8VKGX8"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Get substance ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const substanceId = urlParams.get('id');
+
+    if (!substanceId) {
+      document.getElementById('substanceName').innerText = "Substance not found!";
+    }
+
+    async function loadSubstance() {
+      const docRef = doc(db, 'substances', substanceId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById('substanceName').innerText = data.name || 'Unknown';
+        document.getElementById('substanceClass').innerText = `Class: ${data.class || 'Unknown'}`;
+        document.getElementById('substanceSummary').innerText = data.summary || '';
+        document.getElementById('substanceDescription').innerText = data.description || '';
+        document.getElementById('substanceRisks').innerText = data.risks || '';
+
+        // Load topics
+        const topicsContainer = document.getElementById('topicsContainer');
+        const topicsCol = collection(db, 'substances', substanceId, 'topics');
+        const topicsSnapshot = await getDocs(topicsCol);
+
+        topicsSnapshot.forEach(topicDoc => {
+          const topicData = topicDoc.data();
+          const topicDiv = document.createElement('div');
+          topicDiv.classList.add('topic');
+          topicDiv.innerHTML = `<strong>${topicData.name}</strong><p>${topicData.description}</p><div class="chat-placeholder">Chat coming soon...</div>`;
+          topicsContainer.appendChild(topicDiv);
+        });
+
+      } else {
+        document.getElementById('substanceName').innerText = "Substance not found!";
+      }
+    }
+
+    loadSubstance();
+  </script>
+</body>
+</html>
