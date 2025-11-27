@@ -1,47 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const searchInput = document.getElementById('searchInput');
-  const searchBtn = document.getElementById('searchBtn');
-  const resultsDiv = document.getElementById('results');
+// Make sure Firebase is initialized first
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-  const substances = [
-    { name: 'THC', link: 'substance1.html' },
-    { name: 'Caffeine', link: 'substance2.html' },
-  ];
+// Your Firebase config
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-  function searchSubstance() {
-    const query = searchInput.value.trim().toLowerCase();
-    resultsDiv.innerHTML = '';
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    if (!query) {
-      resultsDiv.innerHTML = '<p>Please enter a substance name.</p>';
-      return;
-    }
-
-    const results = substances.filter(sub =>
-      sub.name.toLowerCase().includes(query)
-    );
-
-    if (results.length > 0) {
-      results.forEach(sub => {
-        const item = document.createElement('div');
-        item.classList.add('result-item');
-        item.textContent = sub.name;
-        item.onclick = () => {
-          console.log(`Redirecting to: ${sub.link}`);
-          window.location.href = sub.link; // direct redirect
-        };
-        resultsDiv.appendChild(item);
-      });
-
-      // Automatically open the first match
-      window.location.href = results[0].link;
-    } else {
-      resultsDiv.innerHTML = '<p>No substances found.</p>';
-    }
+// Function to load substances
+async function loadSubstances() {
+  try {
+    const substancesCol = collection(db, 'substances');
+    const snapshot = await getDocs(substancesCol);
+    const substances = snapshot.docs.map(doc => doc.data());
+    console.log("Substances loaded:", substances);
+    // You can now use this data in your website
+  } catch (error) {
+    console.error("Error loading substances:", error);
   }
+}
 
-  searchBtn.addEventListener('click', searchSubstance);
-  searchInput.addEventListener('keypress', e => {
-    if (e.key === 'Enter') searchSubstance();
-  });
-});
+// Call the function
+loadSubstances();
