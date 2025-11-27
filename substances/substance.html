@@ -1,108 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compoundism - Substance Info</title>
-  <link rel="stylesheet" href="../style.css"> <!-- Your main CSS -->
-
-  <!-- Galactic/Futuristic Styling -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compoundism</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
+    /* ================== */
+    /* Hero + Search Styling */
+    /* ================== */
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: radial-gradient(circle at center, #0b0f1a, #1a1f36, #0b0f1a);
-      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      color: #f0e130;
+      background: radial-gradient(circle at center, #0b0c1a, #0f0f2a, #16163f);
       overflow-x: hidden;
     }
 
-    /* Floating star effect */
-    .star {
+    .auth-btn {
       position: absolute;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: twinkle 3s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0.3; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0.3; transform: scale(0.8); }
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 50px auto;
-      padding: 30px;
-      background-color: rgba(10,10,30,0.85);
-      border-radius: 15px;
-      box-shadow: 0 0 50px rgba(240, 225, 48, 0.2);
-    }
-
-    h1 {
-      font-size: 3rem;
-      text-align: center;
-      margin-bottom: 10px;
-      color: #f0e130;
-      text-shadow: 0 0 25px #f0e130, 0 0 50px #f0e130;
-    }
-
-    .subclass {
-      font-size: 1.2rem;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #a0d8f0;
-      text-shadow: 0 0 10px #a0d8f0;
-    }
-
-    .summary, .description, .risks {
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    .topics-container {
-      margin-top: 30px;
-    }
-
-    .topic {
+      top: 20px;
+      right: 30px;
+      padding: 12px 20px;
       background: rgba(255,255,255,0.05);
-      padding: 15px;
-      margin-bottom: 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-      box-shadow: 0 0 10px rgba(240, 225, 48, 0.1);
+      color: #f0e130;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
-    .topic:hover {
+    .auth-btn:hover {
       background: rgba(255,255,255,0.15);
-      transform: scale(1.02);
+      box-shadow: 0 0 20px #f0e130;
     }
 
-    .chat-placeholder {
-      margin-top: 10px;
-      font-style: italic;
-      color: #aaa;
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .overlay {
+      position: absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+
+    .nebula {
+      position: absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: url('https://i.ibb.co/9tv9xD4/nebula.png') center/cover no-repeat;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #f0e130;
+    }
+
+    .hero-content .tagline {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px #f0e130;
+    }
+
+    /* Search Bar */
+    .search-container {
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #substanceSearch {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.3);
+      color: #f0e130;
+      outline: none;
+      box-shadow: 0 0 20px #f0e130;
+      transition: all 0.3s ease;
+    }
+
+    #substanceSearch:focus {
+      box-shadow: 0 0 40px #f0e130;
+    }
+
+    #searchResults {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 0 5px;
+    }
+
+    .search-result {
+      background: rgba(255,255,255,0.05);
+      padding: 12px 20px;
+      border-radius: 20px;
+      color: #f0e130;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(240,225,48,0.2);
+    }
+
+    .search-result:hover {
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 25px #f0e130;
+      transform: scale(1.03);
+    }
+
+    /* Info Section */
+    .info-section {
+      padding: 60px 20px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .info-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: #f0e130;
+      background: rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 id="substanceName">Loading...</h1>
-    <div class="subclass" id="substanceClass"></div>
-    <p class="summary" id="substanceSummary"></p>
-    <p class="description" id="substanceDescription"></p>
-    <p class="risks" id="substanceRisks"></p>
+  <!-- Login button -->
+  <a href="auth.html" class="auth-btn">Sign Up / Log In</a>
 
-    <div class="topics-container" id="topicsContainer">
-      <h2>Topics & Chat</h2>
+  <!-- Hero section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="nebula"></div>
+    <div class="hero-content">
+      <h1>Compoundism</h1>
+      <p class="tagline">The go-to site to learn about any chemical or substance in existence.</p>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="substanceSearch" placeholder="Search for a substance..." />
+        <div id="searchResults"></div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Firebase SDKs -->
+  <!-- Info Section -->
+  <section class="info-section">
+    <h2>What is Compoundism?</h2>
+    <p>
+      Compoundism is your gateway to verified information on thousands of chemical substances — from everyday compounds to research chemicals and peptides.
+      Our goal is harm reduction through education, clarity, and exploration.
+    </p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Compoundism — Knowledge for Harm Reduction</p>
+  </footer>
+
+  <!-- Firebase + Search Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-    import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
@@ -117,58 +200,55 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Get substance ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const substanceId = urlParams.get('id');
+    const searchInput = document.getElementById('substanceSearch');
+    const resultsContainer = document.getElementById('searchResults');
 
-    if (!substanceId) {
-      document.getElementById('substanceName').innerText = "Substance not found!";
-    }
+    async function loadSubstances() {
+      try {
+        const substancesCol = collection(db, 'substances');
+        const snapshot = await getDocs(substancesCol);
+        const substances = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    async function loadSubstance() {
-      const docRef = doc(db, 'substances', substanceId);
-      const docSnap = await getDoc(docRef);
+        function goToSubstancePage(sub) {
+          window.location.href = `/substances/substance.html?id=${sub.id}`;
+        }
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        document.getElementById('substanceName').innerText = data.name || 'Unknown';
-        document.getElementById('substanceClass').innerText = `Class: ${data.class || 'Unknown'}`;
-        document.getElementById('substanceSummary').innerText = data.summary || '';
-        document.getElementById('substanceDescription').innerText = data.description || '';
-        document.getElementById('substanceRisks').innerText = data.risks || '';
+        // Live search with hover/click results
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase();
+          resultsContainer.innerHTML = '';
 
-        // Load topics
-        const topicsContainer = document.getElementById('topicsContainer');
-        const topicsCol = collection(db, 'substances', substanceId, 'topics');
-        const topicsSnapshot = await getDocs(topicsCol);
+          if (!query) return;
 
-        topicsSnapshot.forEach(topicDoc => {
-          const topicData = topicDoc.data();
-          const topicDiv = document.createElement('div');
-          topicDiv.classList.add('topic');
-          topicDiv.innerHTML = `<strong>${topicData.name}</strong><p>${topicData.description}</p><div class="chat-placeholder">Chat coming soon...</div>`;
-          topicsContainer.appendChild(topicDiv);
+          const filtered = substances.filter(sub => sub.name.toLowerCase().includes(query));
+
+          filtered.forEach(sub => {
+            const a = document.createElement('a');
+            a.href = "#"; // prevent default
+            a.innerText = sub.name;
+            a.classList.add('search-result');
+            a.addEventListener('click', (e) => {
+              e.preventDefault();
+              goToSubstancePage(sub);
+            });
+            resultsContainer.appendChild(a);
+          });
         });
 
-      } else {
-        document.getElementById('substanceName').innerText = "Substance not found!";
+        // Press Enter to go to first result
+        searchInput.addEventListener('keydown', (e) => {
+          if(e.key === "Enter") {
+            const first = substances.find(sub => sub.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+            if(first) goToSubstancePage(first);
+          }
+        });
+      } catch(err) {
+        console.error("Error loading substances:", err);
+        resultsContainer.innerHTML = '<p style="color: #f0e130;">Failed to load substances. Check Firestore data.</p>';
       }
     }
 
-    loadSubstance();
-
-    // ---------------- Floating Stars ----------------
-    const numStars = 100;
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.top = Math.random() * window.innerHeight + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.width = Math.random() * 2 + 1 + 'px';
-      star.style.height = star.style.width;
-      document.body.appendChild(star);
-    }
-
+    loadSubstances();
   </script>
 </body>
 </html>
