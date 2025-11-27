@@ -7,32 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<script type="module">
-  // Import Firebase SDKs from Google's CDN (for browser use)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
-  // Your Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
-    authDomain: "compoundism.firebaseapp.com",
-    projectId: "compoundism",
-    storageBucket: "compoundism.firebasestorage.app",
-    messagingSenderId: "60525355923",
-    appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
-    measurementId: "G-NN9F8VKGX8"
-  };
-
-  // Initialize Firebase core services
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  console.log("✅ Firebase fully initialized!");
-</script>
 <body>
   <!-- Top-right login button -->
   <a href="auth.html" class="auth-btn">Sign Up / Log In</a>
@@ -44,7 +19,12 @@
     <div class="hero-content">
       <h1>Compoundism</h1>
       <p class="tagline">The go-to site to learn about any chemical or substance in existence.</p>
-      <a href="#explore" class="explore-btn">Explore the Database</a>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="substanceSearch" placeholder="Search for a substance..." />
+        <div id="searchResults"></div>
+      </div>
     </div>
   </section>
 
@@ -60,5 +40,93 @@
   <footer>
     <p>&copy; 2025 Compoundism — Knowledge for Harm Reduction</p>
   </footer>
+
+  <!-- Firebase + Search Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
+      authDomain: "compoundism.firebaseapp.com",
+      projectId: "compoundism",
+      storageBucket: "compoundism.firebasestorage.app",
+      messagingSenderId: "60525355923",
+      appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
+      measurementId: "G-NN9F8VKGX8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const searchInput = document.getElementById('substanceSearch');
+    const resultsContainer = document.getElementById('searchResults');
+
+    let substances = [];
+
+    // Load all substances from Firestore
+    async function loadSubstances() {
+      const substancesCol = collection(db, 'substances');
+      const snapshot = await getDocs(substancesCol);
+      substances = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+
+    loadSubstances();
+
+    // Filter substances on input
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      resultsContainer.innerHTML = ''; // clear previous results
+      if (query.length === 0) return;
+
+      const filtered = substances.filter(sub => sub.name.toLowerCase().includes(query));
+      filtered.forEach(sub => {
+        const a = document.createElement('a');
+        a.href = `/substances/substance.html?id=${sub.id}`;
+        a.innerText = sub.name;
+        a.classList.add('search-result');
+        resultsContainer.appendChild(a);
+      });
+    });
+  </script>
+
+  <style>
+    /* Search Bar Styling */
+    .search-container {
+      max-width: 500px;
+      margin: 30px auto 0 auto;
+      text-align: center;
+    }
+
+    #substanceSearch {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px rgba(240, 225, 48, 0.3);
+      outline: none;
+    }
+
+    #searchResults {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-result {
+      background: rgba(255,255,255,0.05);
+      padding: 10px 15px;
+      border-radius: 15px;
+      color: #f0e130;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .search-result:hover {
+      background: rgba(255,255,255,0.15);
+    }
+  </style>
 </body>
 </html>
