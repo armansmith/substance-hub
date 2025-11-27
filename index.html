@@ -1,39 +1,137 @@
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compoundism</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Search Bar Styling */
+    .search-container {
+      max-width: 500px;
+      margin: 30px auto 0 auto;
+      text-align: center;
+    }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
-  authDomain: "compoundism.firebaseapp.com",
-  projectId: "compoundism",
-  storageBucket: "compoundism.firebasestorage.app",
-  messagingSenderId: "60525355923",
-  appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
-  measurementId: "G-NN9F8VKGX8"
-};
+    #substanceSearch {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 30px;
+      border: none;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px rgba(240, 225, 48, 0.3);
+      outline: none;
+    }
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    #searchResults {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-const searchInput = document.getElementById('substanceSearch');
-const resultsContainer = document.getElementById('searchResults');
+    .search-result {
+      background: rgba(255,255,255,0.05);
+      padding: 10px 15px;
+      border-radius: 15px;
+      color: #f0e130;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-weight: bold;
+    }
 
-// Load all substances from Firestore once
-let substances = [];
-async function loadSubstances() {
-  const substancesCol = collection(db, 'substances');
-  const snapshot = await getDocs(substancesCol);
-  substances = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-}
-await loadSubstances();
+    .search-result:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
 
-// Filter substances as user types
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase();
-  resultsContainer.innerHTML = '';
+<body>
+  <!-- Top-right login button -->
+  <a href="auth.html" class="auth-btn">Sign Up / Log In</a>
 
-  if (!query) return;
+  <!-- Hero section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="nebula"></div>
+    <div class="hero-content">
+      <h1>Compoundism</h1>
+      <p class="tagline">The go-to site to learn about any chemical or substance in existence.</p>
 
-  const filtered = substances.filter(sub => sub.name.toLowerCase().includes(query));
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="substanceSearch" placeholder="Search for a substance..." />
+        <div id="searchResults"></div>
+      </div>
+    </div>
+  </section>
 
-  filtered.forEac
+  <!-- Placeholder section -->
+  <section id="explore" class="info-section">
+    <h2>What is Compoundism?</h2>
+    <p>
+      Compoundism is your gateway to verified information on thousands of chemical substances — from everyday compounds to research chemicals and peptides.
+      Our goal is harm reduction through education, clarity, and exploration.
+    </p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Compoundism — Knowledge for Harm Reduction</p>
+  </footer>
+
+  <!-- Firebase + Search Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
+      authDomain: "compoundism.firebaseapp.com",
+      projectId: "compoundism",
+      storageBucket: "compoundism.firebasestorage.app",
+      messagingSenderId: "60525355923",
+      appId: "1:60525355923:web:e5d96e893bc5aa67aa7e66",
+      measurementId: "G-NN9F8VKGX8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const searchInput = document.getElementById('substanceSearch');
+    const resultsContainer = document.getElementById('searchResults');
+
+    // Wrap async Firestore calls in an async function
+    async function loadSubstances() {
+      try {
+        const substancesCol = collection(db, 'substances');
+        const snapshot = await getDocs(substancesCol);
+        const substances = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        // Listen to search input
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase();
+          resultsContainer.innerHTML = '';
+
+          if (!query) return;
+
+          const filtered = substances.filter(sub => sub.name.toLowerCase().includes(query));
+
+          filtered.forEach(sub => {
+            const a = document.createElement('a');
+            a.href = `/substances/substance.html?id=${sub.id}`;
+            a.innerText = sub.name;
+            a.classList.add('search-result');
+            resultsContainer.appendChild(a);
+          });
+        });
+      } catch (err) {
+        console.error("Error loading substances:", err);
+      }
+    }
+
+    loadSubstances();
+  </script>
+</body>
+</html>
