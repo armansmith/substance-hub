@@ -5,51 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Compoundism - Substance Info</title>
   <link rel="stylesheet" href="../style.css"> <!-- Your main CSS -->
+
+  <!-- Galactic/Futuristic Styling -->
   <style>
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
       background: radial-gradient(circle at center, #0b0f1a, #1a1f36, #0b0f1a);
       color: #ffffff;
+      overflow-x: hidden;
     }
+
+    /* Floating star effect */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(0.8); }
+    }
+
     .container {
       max-width: 1000px;
       margin: 50px auto;
-      padding: 20px;
+      padding: 30px;
       background-color: rgba(10,10,30,0.85);
-      border-radius: 12px;
+      border-radius: 15px;
+      box-shadow: 0 0 50px rgba(240, 225, 48, 0.2);
     }
+
     h1 {
       font-size: 3rem;
       text-align: center;
       margin-bottom: 10px;
       color: #f0e130;
-      text-shadow: 0 0 15px #f0e130;
+      text-shadow: 0 0 25px #f0e130, 0 0 50px #f0e130;
     }
+
     .subclass {
       font-size: 1.2rem;
       text-align: center;
       margin-bottom: 20px;
       color: #a0d8f0;
+      text-shadow: 0 0 10px #a0d8f0;
     }
+
     .summary, .description, .risks {
       margin-bottom: 20px;
       line-height: 1.6;
     }
+
     .topics-container {
       margin-top: 30px;
     }
+
     .topic {
-      background-color: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.05);
       padding: 15px;
       margin-bottom: 12px;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px rgba(240, 225, 48, 0.1);
     }
+
     .topic:hover {
-      background-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.02);
     }
+
     .chat-placeholder {
       margin-top: 10px;
       font-style: italic;
@@ -67,7 +96,6 @@
 
     <div class="topics-container" id="topicsContainer">
       <h2>Topics & Chat</h2>
-      <!-- Topics will be dynamically loaded here -->
     </div>
   </div>
 
@@ -76,7 +104,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
     import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
-    // Firebase config (replace with your own if different)
     const firebaseConfig = {
       apiKey: "AIzaSyDB6giLOMEesZN8k3KpMUfbPBO19RUZRY0",
       authDomain: "compoundism.firebaseapp.com",
@@ -87,7 +114,6 @@
       measurementId: "G-NN9F8VKGX8"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -130,6 +156,19 @@
     }
 
     loadSubstance();
+
+    // ---------------- Floating Stars ----------------
+    const numStars = 100;
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.width = Math.random() * 2 + 1 + 'px';
+      star.style.height = star.style.width;
+      document.body.appendChild(star);
+    }
+
   </script>
 </body>
 </html>
